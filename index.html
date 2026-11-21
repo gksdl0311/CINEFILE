@@ -1,67 +1,19 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CINEFILE — Stories that stay</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital@0;1&display=swap');
-:root{color-scheme:dark;--bg:#10130f;--panel:#1d241c;--line:#374134;--txt:#f1f0e9;--muted:#adb5a5;--accent:#d9ecb2}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.55 "DM Sans",system-ui,sans-serif}button,input,select{font:inherit}
-.shell{max-width:1160px;margin:auto;padding:0 28px}
-header{border-bottom:1px solid var(--line)}nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 0}.logo{font-size:22px;font-weight:700;letter-spacing:.20em}.diamond{display:inline-block;width:12px;height:12px;background:var(--accent);transform:rotate(45deg);margin-right:18px}
-.overline{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--accent)}
-.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:35px;align-items:center;padding:84px 0 54px}
-h1{font:400 clamp(49px,7vw,90px)/1.05 "Playfair Display",Georgia,serif;letter-spacing:-.04em;margin:18px 0}h1 em{color:var(--accent)}
-.description{color:var(--muted);font-size:17px;max-width:580px}.button{display:inline-flex;gap:10px;align-items:center;justify-content:center;background:var(--accent);border:1px solid var(--accent);color:#1b2518;cursor:pointer;padding:14px 20px;font-weight:700;margin:12px 0}.button:hover{filter:brightness(1.08)}.button.secondary{background:transparent;color:var(--txt);border-color:var(--line)}
-.import{background:var(--panel);border:1px solid var(--line);padding:30px;min-height:270px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}.import p{color:var(--muted);font-size:13px}.privacy{font-size:12px;color:var(--muted)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.stat{padding:25px 20px;border-right:1px solid var(--line)}.stat:first-child{padding-left:0}.stat:last-child{border:0}.stat strong{display:block;font:400 39px "Playfair Display",serif}.stat small{display:block;color:var(--muted);font-size:11px;letter-spacing:.13em;text-transform:uppercase}
-section.main{padding:65px 0}.section-title{font:400 37px "Playfair Display",serif;margin:0 0 24px}.recent{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 45px}
-.item{border:1px solid var(--line);background:var(--panel);padding:21px;min-height:152px;display:flex;flex-direction:column;justify-content:space-between}
-.item b{font:400 22px "Playfair Display",serif;margin:14px 0}.muted{color:var(--muted)}.small{font-size:12px}
-.toolbar{display:grid;grid-template-columns:1fr 170px 170px;gap:9px;margin:0 0 16px}
-.toolbar input,.toolbar select{background:var(--panel);border:1px solid var(--line);color:var(--txt);padding:13px;min-width:0}
-table{width:100%;border-collapse:collapse}th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:500}th,td{padding:13px 16px;border-bottom:1px solid var(--line)}td .ko{display:block;font-size:12px;color:var(--muted)}td.rate{color:var(--accent)}.tablewrap{overflow-x:auto;border:1px solid var(--line)}.tablewrap table{min-width:650px}
-.pages{display:flex;align-items:center;justify-content:space-between;padding:18px 0;gap:14px}.pages button{border:1px solid var(--line);background:transparent;color:var(--txt);padding:9px 14px;cursor:pointer}.pages button:disabled{opacity:.25;cursor:default}
-.empty{padding:27px;color:var(--muted);text-align:center}.note{padding:25px 0 50px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
-footer{padding:12px 28px 32px;color:var(--muted);font-size:12px}.hidden{display:none}
-@media(max-width:770px){.hero{grid-template-columns:1fr;padding:45px 0}.stats{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}.recent{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.toolbar input{grid-column:1/-1}nav .overline{display:none}}
-</style></head>
-<body><header><nav class="shell"><div class="logo"><span class="diamond"></span>CINEFILE</div><span class="overline">HANYEE LABS / PERSONAL ARCHIVE</span></nav></header>
-<main class="shell"><section class="hero"><div><div class="overline">Every film leaves a trace</div><h1>For the stories <em>that stay.</em></h1><p class="description">A quiet place for every film, series and documentary you loved, disliked, or simply remember.</p></div><aside class="import"><div class="overline">Your archive</div><h2>Bring your watch history.</h2><p>Import your private CINEFILE <code>archive.json</code>. Your ratings, dates and seasons stay on this device, not in our public repository.</p><button class="button" id="importBtn">Import archive ↗</button><input class="hidden" id="file" type="file" accept=".json,application/json"><span class="privacy" id="importStatus">No archive loaded yet.</span></aside></section>
-<section class="stats"><div class="stat"><strong id="count">—</strong><small>Archive entries</small></div><div class="stat"><strong id="movies">—</strong><small>Films</small></div><div class="stat"><strong id="tv">—</strong><small>TV & series</small></div><div class="stat"><strong id="avg">—</strong><small>Average rating</small></div></section>
-<section class="main"><div class="overline">Viewing journal</div><h2 class="section-title">Recently logged</h2><div class="recent" id="recent"><div class="empty">Import your archive to see recent activity.</div></div>
-<div class="overline">The complete collection</div><h2 class="section-title">Archive</h2>
-<div class="toolbar"><input id="search" placeholder="Search English or Korean titles…" aria-label="Search titles"><select id="type"><option value="">All formats</option><option value="MOVIE">Films</option><option value="TV">TV & series</option></select><select id="rating"><option value="">All ratings</option><option value="5">5 stars</option><option value="4.5">4.5+ stars</option><option value="4">4+ stars</option><option value="unrated">Unrated</option></select></div>
-<div class="tablewrap"><table><thead><tr><th>Title</th><th>Type</th><th>Year</th><th>Logged</th><th>Rating</th></tr></thead><tbody id="rows"><tr><td colspan="5" class="empty">Import your archive to browse your collection.</td></tr></tbody></table></div>
-<div class="pages"><button id="prev" disabled>← Previous</button><span class="small muted" id="pages"></span><button id="next" disabled>Next →</button></div>
-</section><p class="note">CINEFILE uses calendar dates as logged dates, not independently verified viewing dates. Ratings are out of five. Seasons are displayed separately when given. Imported archive files are processed only in your browser and are not uploaded.</p></main><footer class="shell">CINEFILE · A HANYEE LABS PROJECT</footer>
-<script>
-(function(){
-const $=s=>document.querySelector(s);let data=null,page=0;const limit=35;
-const display=r=>r.DisplayTitle||(r.TitleEN||r.Title)+(r.Season?' — Season '+r.Season:'');
-const date=s=>{if(!s)return '—';const dt=new Date(s+'T12:00:00');return isNaN(dt.getTime())?s:dt.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})};
-const rating=r=>r.Rating===null||r.Rating===undefined||r.Rating===''?null:Number(r.Rating);
-function td(row,value,cls){const c=document.createElement('td');c.textContent=value;if(cls)c.className=cls;row.append(c);return c}
-function render(){if(!data)return;
-const recs=data.records||[],acts=data.activity||[];
-$('#count').textContent=recs.length.toLocaleString('en-GB');
-$('#movies').textContent=recs.filter(r=>r.Type==='MOVIE').length.toLocaleString('en-GB');
-$('#tv').textContent=recs.filter(r=>r.Type==='TV').length.toLocaleString('en-GB');
-const rated=recs.map(rating).filter(v=>v!==null&&!isNaN(v));$('#avg').textContent=rated.length?(rated.reduce((a,b)=>a+b,0)/rated.length).toFixed(2):'—';
-const recent=$('#recent');recent.replaceChildren();[...acts].sort((a,b)=>b.Date.localeCompare(a.Date)).slice(0,6).forEach(a=>{const card=document.createElement('article');card.className='item';const dateEl=document.createElement('div');dateEl.className='overline';dateEl.textContent=date(a.Date);const title=document.createElement('b');title.textContent=display(a);const note=document.createElement('span');note.className='small muted';note.textContent=(a.Type==='MOVIE'?'Film':'TV / Series')+' · '+(rating(a)===null?'Unrated':rating(a)+' / 5');card.append(dateEl,title,note);recent.append(card)});
-const search=$('#search').value.toLocaleLowerCase().trim(),typ=$('#type').value,score=$('#rating').value;
-const filtered=[...recs].filter(r=>{
-const text=(r.Title+' '+(r.TitleEN||'')+' '+(r.TitleKO||'')+' '+display(r)).toLocaleLowerCase();
-const num=rating(r);
-return (!search||text.includes(search))&&(!typ||r.Type===typ)&&(!score||(score==='unrated'?num===null:num!==null&&num>=Number(score)));
-}).sort((a,b)=>(b.WatchedAt||'').localeCompare(a.WatchedAt||''));
-const max=Math.max(1,Math.ceil(filtered.length/limit));page=Math.min(page,max-1);$('#pages').textContent=filtered.length+' results · Page '+(page+1)+' of '+max;$('#prev').disabled=page===0;$('#next').disabled=page>=max-1;
-const body=$('#rows');body.replaceChildren();filtered.slice(page*limit,(page+1)*limit).forEach(r=>{const tr=document.createElement('tr');const name=td(tr,display(r));if(r.TitleKO&&r.TitleKO!==display(r)){const ko=document.createElement('span');ko.className='ko';ko.textContent=r.TitleKO;name.append(ko)}td(tr,r.Type==='MOVIE'?'Film':'TV / Series');td(tr,r.Year||'—');td(tr,date(r.WatchedAt));const n=rating(r);td(tr,n===null?'—':n+' / 5',n===null?'muted':'rate');body.append(tr)});if(!filtered.length){const tr=document.createElement('tr');td(tr,'No matching titles','empty').colSpan=5;body.append(tr)}
-}
-$('#importBtn').onclick=()=>$('#file').click();
-$('#file').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const parsed=JSON.parse(await f.text());if(!Array.isArray(parsed.records)||!Array.isArray(parsed.activity))throw Error('Expected records and activity arrays');data=parsed;page=0;$('#importStatus').textContent='Loaded '+f.name+' · '+parsed.records.length+' entries';render()}catch(err){$('#importStatus').textContent='Could not load archive: '+err.message}};
-['search','type','rating'].forEach(id=>$('#'+id).addEventListener(id==='search'?'input':'change',()=>{page=0;render()}));
-$('#prev').onclick=()=>{page=Math.max(0,page-1);render()};$('#next').onclick=()=>{page++;render()};
-})();
-</script></body></html>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#0b0b0f"><meta name="description" content="in frame., a private film journal by Hanyee Labs.">
+<title>in frame. · For the stories that stay.</title>
+<link rel="icon" href="art/mark.svg"><link rel="stylesheet" href="style.css">
+<script defer src="archive.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header><div class="mast"><a href="#home" class="brand" aria-label="in frame. home">in frame.</a>
+<nav aria-label="Main"><a href="#home">Home</a><a href="#archive">The Archive</a><a href="#journal">Journal</a><a href="#collections">Collections</a><a href="#about">About</a></nav>
+<div class="tools"><button class="icon" data-action="search" aria-label="Search archive"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 6 6"/></svg></button><button class="import" data-action="manage"><svg viewBox="0 0 24 24"><path d="M12 15V3m-5 5 5-5 5 5M4 15v5h16v-5"/></svg>Import archive</button></div></div></header>
+<main id="main" tabindex="-1"></main>
+<footer><a class="brand" href="#home">in frame.</a><span>A HANYEE LABS PROJECT</span><button data-action="manage">Archive settings</button></footer>
+<dialog id="panel"><button class="close" aria-label="Close dialog">×</button><div id="inside"></div></dialog>
+</body></html>

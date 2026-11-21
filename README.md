@@ -1,29 +1,27 @@
-# CINEFILE
+# in frame.
 
-A HANYEE LABS personal film and television archive.
+A private film and television archive by Hanyee Labs. The homepage pairs an original cinema interior with expressive serif type, near-black and oxblood surfaces, and an ivory section inspired by printed film programmes. The layout shifts from a split composition to stacked imagery on small screens.
 
-## Your data stays yours
+## Use the archive
 
-This repository contains only the **CINEFILE app interface**. It does **not** contain any personal Watcha ratings or viewing history.
+Choose **Import archive** and select your existing CINEFILE JSON, Watcha Pedia CSV, or calendar activity CSV. Imports merge into the open session. **Export backup** saves your titles, dated activity and collections as JSON. Save a backup before closing or refreshing because the session lives in the current tab. **Clear session** empties the open archive after confirmation.
 
-To use the site:
-1. Open `index.html` in a browser.
-2. Click **Import archive**.
-3. Select your private `archive.json` file from the CINEFILE folder in your ChatGPT file Library (or use the locally generated archive export).
-
-Nothing is uploaded to any server by this app. The archive is parsed in the browser and stays in memory until the page is closed.
+Imported data is processed in the browser. The deployed assets contain the app and original artwork only. The site makes no archive requests to third-party services. Embedded JPEG, PNG and WebP artwork can be displayed locally.
 
 ## Features
 
-- Film, TV series and documentary archive
-- English/Korean title search
-- Ratings and date filtering
-- Season-specific entries (e.g., *Superstore* seasons 1 and 2)
-- Recently logged history and overview statistics
-- Responsive, local-first layout
+- Gallery and list views with pagination, bilingual title search, review and director search, format/rating/year/date filters, and sorting.
+- Title details, personal ratings, homepage activity and statistics, and a year/month timeline.
+- Watcha dates appear as logged activity. Explicitly confirmed viewing dates appear as watched.
+- Stable source IDs and season numbers take precedence for merges. Exact matching on a title variant, year, format and season can link entries lacking an ID. Distinct dated events are retained. Same-day event counts are reconciled across overlapping imports.
+- Journal displays imported reviews. Collections can be created, edited and populated from title details.
 
-Source data: user-owned Watcha export + newer Watcha calendar screenshots + subsequent ratings. Dates may be logging dates rather than confirmed viewing dates.
+## Run and deploy
 
-## Status
+Run `sh build.sh`, then `python3 -m http.server 8000 --directory dist` and open `http://localhost:8000`. Serve the contents of `dist/` from any HTTPS static host. Hash navigation also works on GitHub Pages under a repository path. The root application files and `art/` can be served directly on a branch-based Pages deployment. Keep personal exports separate from the checkout.
 
-Initial import-capable interface, November 2026.
+## Verification and next steps
+
+The importer was checked against the existing JSON, combined Watcha export, and incremental calendar CSV. They reconcile to 1,276 titles and dated entries. Browser checks use synthetic records.
+
+Future improvements include composing longer journal entries, explicit series progress, and an interface for attaching local poster files. The current archive preserves source metadata and infers neither watch completion nor confirmed viewing dates.
