@@ -1,0 +1,4 @@
+dist/
+archive.json
+*.csv
+*backup.json
